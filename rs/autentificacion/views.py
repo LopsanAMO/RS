@@ -34,11 +34,10 @@ class Login(View):
         return render(request, template_name, context)
 
     def post(self, request):
-        form = LoginForm(request.POST)
-        if form.is_valid():
             uusername = request.POST.get('usuario')
             password = request.POST.get('contra')
             user = authenticate(username=username, password=password)
+        if user.is_none:
             login(request,user)
             return redirect('/')
         else:
